@@ -1,7 +1,5 @@
 package worlds;
 
-import io.PacketSender;
-
 import java.util.ArrayList;
 
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -20,9 +18,8 @@ public class World {
 	ChannelBuffer buffer;
 	String activity;
 	
-	public World(Channel channel, ChannelBuffer buffer, byte worldId, boolean members, byte location, String activity) {
+	public World(Channel channel, byte worldId, boolean members, byte location, String activity) {
 		this.channel = channel;
-		this.buffer = buffer;
 		this.worldId = worldId;
 		this.location = location;
 		this.members = members;

@@ -14,6 +14,7 @@ public final class ConnectionHandler extends SimpleChannelHandler {
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
 		logger.info("Connection connected on: " + e.getChannel().toString());
+		logger.info("Awaiting authentication.");
 	}
 
 	@Override

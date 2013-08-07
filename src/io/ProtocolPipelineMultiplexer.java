@@ -1,7 +1,7 @@
 package io;
 
-import io.codec.AuthenticationDecoder;
-import io.codec.PacketEncoder;
+import io.in.BoaDecoder;
+import io.out.BoaEncoder;
 
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
@@ -11,8 +11,8 @@ public final class ProtocolPipelineMultiplexer implements ChannelPipelineFactory
 
 	public ChannelPipeline getPipeline() throws Exception {
 		ChannelPipeline pipeline = Channels.pipeline();
-		pipeline.addLast("encoder", new PacketEncoder());
-		pipeline.addLast("decoder", new AuthenticationDecoder());
+		pipeline.addLast("encoder", new BoaEncoder());
+		pipeline.addLast("decoder", new BoaDecoder());
 		pipeline.addLast("logic", new ConnectionHandler());
 		return pipeline;
 	}
