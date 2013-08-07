@@ -1,14 +1,13 @@
 package io.in;
 
-import java.nio.ByteBuffer;
+import packet.Packet;
 
 import worlds.World;
 
 public class PacketHandler {
 
-	public static void handle(World world, ByteBuffer buffer) {
-		int opcode = buffer.get() & 0xFF;
-		switch(opcode) {
+	public static void handle(World world, Packet packet) {
+		switch(packet.getOpcode()) {
 			case 1:
 			
 		}

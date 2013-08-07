@@ -7,6 +7,8 @@ import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
 
+import packet.Packet;
+
 import worlds.World;
 import worlds.Worlds;
 
@@ -16,9 +18,11 @@ public class BoaDecoder extends FrameDecoder {
 	protected Object decode(ChannelHandlerContext arg0, Channel channel, ChannelBuffer buffer) throws Exception {
 		World world = Worlds.getWorld(channel);
 		if (world == null) {
-			Authenticate.authenticate(channel, buffer.toByteBuffer());
+			Packet packet = new Packet(buffer.toByteBuffer(), false);
+			Authenticate.authenticate(channel, packet);
 		} else {
-			PacketHandler.handle(world, buffer.toByteBuffer());
+			Packet packet = new Packet(buffer.toByteBuffer(), true);
+			PacketHandler.handle(world, packet);
 		}
 //		int opcode = buffer.readByte();
 //		if (opcode == 1) {//log in check
