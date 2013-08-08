@@ -27,7 +27,7 @@ public final class ConnectionManager {
 		bootstrap.setPipelineFactory(new ProtocolPipelineMultiplexer());
 		bootstrap.setOption("tcpNoDelay", true);
 		bootstrap.setOption("keepAlive", true);
-		bootstrap.bind(new InetSocketAddress(43595));
-		logger.info("Listening on: " + 43595);
+		bootstrap.bind(new InetSocketAddress(43596));
+		logger.info("Listening on: " + 43596);
 	}
 }

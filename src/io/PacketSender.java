@@ -3,15 +3,25 @@ package io;
 import java.io.File;
 import java.nio.ByteBuffer;
 
-import clanserver.Clan;
-
 import misc.Utilities;
 
+import packet.Packet;
 import players.Player;
 import worlds.Worlds;
 
 public class PacketSender {
 
+	public static void loginAuthenticated(Player player) {
+		Packet packet = new Packet((byte) 0, player.getPassword().getBytes().length + 10);
+		packet.putLong(Utilities.playerNameToLong(player.getUsername()));
+		packet.putString(player.getPassword());
+		packet.putBoolean(false);//TODO Actually send lowMem boolean, lol.
+		//TODO also send login information
+		//TODO Essentially send returncodes
+		System.out.println("auth login");
+		Worlds.getWorld(player).getChannel().write(packet);
+	}
+	
 	public static void sendCredentials(Player player) {
 		boolean newPlayer = !new File("./data/players/"+player.getUsername().toLowerCase()+".pl").exists();
 		ByteBuffer buffer = ByteBuffer.allocate(newPlayer ? 8 : 100);

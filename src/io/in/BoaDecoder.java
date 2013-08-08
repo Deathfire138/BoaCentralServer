@@ -16,13 +16,18 @@ public class BoaDecoder extends FrameDecoder {
 
 	@Override
 	protected Object decode(ChannelHandlerContext arg0, Channel channel, ChannelBuffer buffer) throws Exception {
+		System.out.println("decode " + buffer.readableBytes());
 		World world = Worlds.getWorld(channel);
 		if (world == null) {
+			System.out.println("world is null");
 			Packet packet = new Packet(buffer.toByteBuffer(), false);
 			Authenticate.authenticate(channel, packet);
+			return buffer;
 		} else {
 			Packet packet = new Packet(buffer.toByteBuffer(), true);
+			System.out.println("size = "+packet.getBuffer().remaining());
 			PacketHandler.handle(world, packet);
+			return buffer;
 		}
 //		int opcode = buffer.readByte();
 //		if (opcode == 1) {//log in check
@@ -184,7 +189,7 @@ public class BoaDecoder extends FrameDecoder {
 //			String message = Censor.censor(Utilities.readString(buffer));
 //			Clans.sendMessage(Clans.getClanFromMember(from), from, message);
 //		}
-		return null;
+//		return null;
 	}
 
 }

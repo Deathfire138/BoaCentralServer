@@ -35,8 +35,8 @@ public class Packet {
 		VARIABLE_SHORT;
 	}
 	
-	public Packet(ByteBuffer buffer, boolean hasOpcode) {
-		this.buffer = buffer;
+	public Packet(ByteBuffer buf, boolean hasOpcode) {
+		buffer = buf;
 		if (hasOpcode)
 			opcode = buffer.get();
 	}
@@ -50,7 +50,7 @@ public class Packet {
 	public Packet(byte opcode, int expectedAllocation, Size s) {
 		buffer = ByteBuffer.allocate(expectedAllocation + 1);
 		putByte(opcode);
-		size = size;
+		size = s;
 	}
 	
 	public Packet(int expectedAllocation) {
@@ -195,6 +195,22 @@ public class Packet {
 		return buffer.getLong();
 	}
 	
+	public void putDouble(double d) {
+		buffer.putDouble(d);
+	}
+	
+	public double getDouble() {
+		return buffer.getDouble();
+	}
+	
+	public void putFloat(float f) {
+		buffer.putFloat(f);
+	}
+	
+	public float getFloat() {
+		return buffer.getFloat();
+	}
+	
 	public void putString(String s) {
 		buffer.put(s.getBytes());
 		buffer.put((byte) 0);
@@ -256,6 +272,10 @@ public class Packet {
 
 	public byte getOpcode() {
 		return opcode;
+	}
+	
+	public ByteBuffer flip() {
+		return (ByteBuffer) buffer.flip();
 	}
 	
 }
